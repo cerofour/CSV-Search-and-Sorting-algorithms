@@ -202,7 +202,7 @@ public class CSVSorterAndSearcherController {
             // crea la subventana SearchSettings
 
             // crea la subventana ExecutionTimeLog
-            Scene sceneExecutionTimeLog = new Scene(loaderExecutionTimeLog.load(), 450, 460);
+            Scene sceneExecutionTimeLog = new Scene(loaderExecutionTimeLog.load(), 445, 460);
             stageExecutionTimeLog.setTitle("Execution Time Log");
             stageExecutionTimeLog.setScene(sceneExecutionTimeLog);
             stageExecutionTimeLog.setResizable(false);

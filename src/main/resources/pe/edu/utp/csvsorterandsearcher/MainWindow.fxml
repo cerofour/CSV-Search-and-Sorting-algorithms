@@ -62,6 +62,7 @@
         <Menu mnemonicParsing="false" text="Data">
           <items>
             <MenuItem mnemonicParsing="false" text="Datatypes" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
                   <CheckMenuItem fx:id="checkMenuItemOptHeaders" mnemonicParsing="false" onAction="#generateCXHeaders" text="Generate headers" />
           </items>
         </Menu>
