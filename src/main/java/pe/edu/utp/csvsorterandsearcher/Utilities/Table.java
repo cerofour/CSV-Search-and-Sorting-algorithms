@@ -7,6 +7,9 @@ import javafx.scene.control.TableView;
 
 // TODO: Esta clase es de guia para crear las columnas e ingresar datos (Clase tomada del proyecto antiguo)
 public class Table {
+
+    public static String[] headers;
+
     private String[] cabecerasTabla;
     private boolean archivoTieneCabeceras_flag = false;
     private ObservableList<String[]> datos;

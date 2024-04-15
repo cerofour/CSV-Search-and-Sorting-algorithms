@@ -87,6 +87,8 @@
               <items>
                 <MenuItem fx:id="menuItemRawData" mnemonicParsing="false" onAction="#showRawData" text="Raw data" />
                   <MenuItem fx:id="menuItemProcessedData" mnemonicParsing="false" onAction="#showProcessedData" text="Processed Data" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuItemExecutionTimeLog" mnemonicParsing="false" onAction="#runExecutionTimeLog" text="Execution time log" />
               </items>
             </Menu>
       </menus>

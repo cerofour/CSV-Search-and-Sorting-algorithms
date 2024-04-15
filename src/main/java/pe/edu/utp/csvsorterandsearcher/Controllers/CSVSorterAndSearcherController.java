@@ -68,12 +68,18 @@ public class CSVSorterAndSearcherController {
     private Stage stageSortSettings = new Stage();
 
     @FXML
+    private Stage stageExecutionTimeLog = new Stage();
+
+    @FXML
     private Label labelTextDataView;
 
 
 
     public static boolean sortingModeASC = true;
     public static boolean rawDataView = true;
+
+    private ExecutionTimeLogController ExecutionTimeLogC;
+    private SortingSettingsController SortingSettingsC;
 
     private FileChooser fileChooserOpen;
     private FileChooser fileChooserExport;
@@ -181,6 +187,7 @@ public class CSVSorterAndSearcherController {
 
     private void createSubWindows(){
         FXMLLoader loaderSortSettings = new FXMLLoader(CSVSorterAndSearcher.class.getResource("SortingSettings.fxml"));
+        FXMLLoader loaderExecutionTimeLog = new FXMLLoader(CSVSorterAndSearcher.class.getResource("ExecutionTimeLog.fxml"));
         try{
             // crea la subventana SortSettings
             Scene sceneSortSettings = new Scene(loaderSortSettings.load(), 380, 210);
@@ -191,7 +198,20 @@ public class CSVSorterAndSearcherController {
                 stageSortSettings.hide();
                 windowEvent.consume();}
             );
+            SortingSettingsC = loaderSortSettings.getController();
             // crea la subventana SearchSettings
+
+            // crea la subventana ExecutionTimeLog
+            Scene sceneExecutionTimeLog = new Scene(loaderExecutionTimeLog.load(), 450, 460);
+            stageExecutionTimeLog.setTitle("Execution Time Log");
+            stageExecutionTimeLog.setScene(sceneExecutionTimeLog);
+            stageExecutionTimeLog.setResizable(false);
+            stageExecutionTimeLog.setOnCloseRequest(windowEvent -> {
+                stageExecutionTimeLog.hide();
+                windowEvent.consume();}
+            );
+            ExecutionTimeLogC = loaderExecutionTimeLog.getController();
+
 
         } catch (IOException e){
             Utilities.alert(
@@ -248,6 +268,7 @@ public class CSVSorterAndSearcherController {
             // tambien se puede limpiar borrando el contenido del arreglo referenciado
             // en los datos del tableView
         }
+        ExecutionTimeLogC.clear();
 
 
     }
@@ -340,6 +361,16 @@ public class CSVSorterAndSearcherController {
         }else{
             stageSortSettings.hide();
             stageSortSettings.show();
+        }
+    }
+
+    @FXML
+    protected void runExecutionTimeLog(){
+        if (!stageExecutionTimeLog.isShowing()){
+            stageExecutionTimeLog.show();
+        }else{
+            stageExecutionTimeLog.hide();
+            stageExecutionTimeLog.show();
         }
     }
 

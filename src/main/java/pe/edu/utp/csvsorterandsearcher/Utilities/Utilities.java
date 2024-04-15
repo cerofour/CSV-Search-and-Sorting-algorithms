@@ -23,16 +23,17 @@ public class Utilities {
     private static final int _CANTRECENTFILES_ = 5;
 
     public static ArrayList<String> readRecordRecentFiles(){
+        ArrayList<String> data;
         try(BufferedReader fi = new BufferedReader(new FileReader(_FILELOG_))){
-            ArrayList<String> data = new ArrayList<>();
+            data = new ArrayList<>();
             String line;
             while((line = fi.readLine()) != null){
                 data.add(line);
             }
-            return data;
         }catch (IOException e){
             return new ArrayList<>();
         }
+        return data;
     }
 
     public static void writeRecordRecentFiles(String path){
