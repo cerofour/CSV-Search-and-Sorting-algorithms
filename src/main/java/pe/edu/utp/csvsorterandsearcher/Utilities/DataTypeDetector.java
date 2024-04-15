@@ -27,7 +27,7 @@ public class DataTypeDetector {
         return value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false");
     }
 
-    public static FieldType DetectarTipoDato(String value){
+    public static FieldType dataTypeDetector(String value){
         if(DataTypeDetector.isDouble(value)){
             return FieldType.Numeric;
         } else if (DataTypeDetector.isDate(value)) {
