@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 public class ExportModes {
 
+    private static StringBuilder content;
+
     public static void ExportAsCSV(){
 
     }
 
     public static void ExportAsHTML(String[] headers, ArrayList<String[]> data, String path) {
-        StringBuilder content = new StringBuilder();
+        content = new StringBuilder();
         content.append("""
                 <!DOCTYPE html>
                 <html lang="en">
@@ -55,7 +57,7 @@ public class ExportModes {
 
     }
 
-    public static void ExportAsJSON(){
+    public static void ExportAsJSON(String[] headers, ArrayList<String[]> data, String path){
 
     }
 

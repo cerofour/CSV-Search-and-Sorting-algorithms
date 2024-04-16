@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pe.edu.utp.csvsorterandsearcher.CSVSorterAndSearcher;
@@ -35,13 +34,12 @@ public class CSVSorterAndSearcherController {
 
     @FXML
     private TableView<String[]> tableView;
-    //Aqui esta el tableView, puedes modificarlo
 
     @FXML
     private CheckMenuItem checkMenuItemOptHeaders;
 
     @FXML
-    private VBox vBox;
+    private Menu menuData, menuSort, menuSearch, menuView;
 
     @FXML
     private Menu menuRecentFiles;
@@ -53,7 +51,7 @@ public class CSVSorterAndSearcherController {
     private MenuItem menuItemSortDESC;
 
     @FXML
-    private Menu menuSortBy;
+    private Menu menuSortOrderBy;
 
     @FXML
     private Menu menuAlgorithm;
@@ -65,22 +63,15 @@ public class CSVSorterAndSearcherController {
     private MenuItem menuItemExportAs;
 
     @FXML
-    private Stage stageSortSettings = new Stage();
-
-    @FXML
     private Stage stageExecutionTimeLog = new Stage();
 
     @FXML
     private Label labelTextDataView;
 
 
-
-    public static boolean sortingModeASC = true;
+    public static boolean sort_orderBy = true;
     public static boolean rawDataView = true;
-
     private ExecutionTimeLogController ExecutionTimeLogC;
-    private SortingSettingsController SortingSettingsC;
-
     private FileChooser fileChooserOpen;
     private FileChooser fileChooserExport;
     private FileChooser fileChooserExportAs;
@@ -89,12 +80,13 @@ public class CSVSorterAndSearcherController {
         createSubWindows();
         updateRecentFiles();
         loadDifferentFileChooser();
-        modifyExportButtons();
+        disableExportButtons(true);
+        disableAllMenuButtons(true);
         //
-        menuItemSortASC.setOnAction(event -> {selectSortingMode(true);});
-        menuItemSortDESC.setOnAction(event -> {selectSortingMode(false);});
-        menuSortBy.getItems().set(0, menuItemSortASC);
-        menuSortBy.getItems().set(1, menuItemSortDESC);
+        menuItemSortASC.setOnAction(event -> {sort_selectOrderBy(true);});
+        menuItemSortDESC.setOnAction(event -> {sort_selectOrderBy(false);});
+        menuSortOrderBy.getItems().set(0, menuItemSortASC);
+        menuSortOrderBy.getItems().set(1, menuItemSortDESC);
         //
         addAlgorithmMethodMenu();
         //
@@ -110,41 +102,8 @@ public class CSVSorterAndSearcherController {
         }
         Utilities.writeRecordRecentFiles(file.getPath());
         updateRecentFiles();
-        modifyExportButtons(); // esta linea deberia ponerse cuando se detectó un ordenamiento o busqueda
-
-
-        /*
-
-        try {
-            lectorArchivo = new Lector(archivo);
-            if(!lectorArchivo.leerArchivo()){
-                Utilidades.Alerta(
-                        "Error",
-                        "Ocurrió un error",
-                        "El archivo tiene datos disparejos!",
-                        Alert.AlertType.ERROR
-                );
-                textFieldArchivoSeleccionado.setText("");
-                return;
-            }
-
-        } catch (Exception e){
-            textFieldArchivoSeleccionado.setText("");
-            return;
-        }
-
-         */
-        /*
-        tabla = new Tabla(lectorArchivo.getDatos());
-        //tabla.establecerDatos(tableView, new int[]{0, 2, 5, 6});
-        tabla.establecerDatos(tableView);
-        cabeceraTipoDato = Utilidades.DetectarTipoDato(tabla.getDatos().get(0));
-        comboBoxCabeceras.setItems(FXCollections.observableArrayList(Arrays.asList(tabla.getCabeceras())));
-        comboBoxCabeceras.setDisable(false);
-        comboBoxModoCabeceraDatos.setDisable(false);
-        comboBoxCabecerasTipoDato.setDisable(false);
-
-         */
+        disableExportButtons(false); // esta linea deberia ponerse cuando se detectó un ordenamiento o busqueda
+        disableAllMenuButtons(false);
     }
 
     private void openRecentFile(String pathRecentFile){
@@ -160,14 +119,16 @@ public class CSVSorterAndSearcherController {
             updateRecentFiles();
             return;
         }
-        modifyExportButtons(); // esta linea deberia ponerse cuando se detectó un ordenamiento o busqueda
+        disableExportButtons(false); // esta linea deberia ponerse cuando se detectó un ordenamiento o busqueda
         // falta mas codigo
+        disableAllMenuButtons(false);
     }
 
-    private void modifyExportButtons(){
-        menuItemExport.setDisable(!menuItemExport.isDisable());
-        menuItemExportAs.setDisable(!menuItemExportAs.isDisable());
+    private void disableExportButtons(boolean disableExportButtons){
+        menuItemExport.setDisable(disableExportButtons);
+        menuItemExportAs.setDisable(disableExportButtons);
     }
+
 
     private void updateRecentFiles(){
         ArrayList<String> recentFiles = Utilities.readRecordRecentFiles();
@@ -186,21 +147,8 @@ public class CSVSorterAndSearcherController {
     }
 
     private void createSubWindows(){
-        FXMLLoader loaderSortSettings = new FXMLLoader(CSVSorterAndSearcher.class.getResource("SortingSettings.fxml"));
         FXMLLoader loaderExecutionTimeLog = new FXMLLoader(CSVSorterAndSearcher.class.getResource("ExecutionTimeLog.fxml"));
         try{
-            // crea la subventana SortSettings
-            Scene sceneSortSettings = new Scene(loaderSortSettings.load(), 380, 210);
-            stageSortSettings.setTitle("Sorting settings");
-            stageSortSettings.setScene(sceneSortSettings);
-            stageSortSettings.setResizable(false);
-            stageSortSettings.setOnCloseRequest(windowEvent -> {
-                stageSortSettings.hide();
-                windowEvent.consume();}
-            );
-            SortingSettingsC = loaderSortSettings.getController();
-            // crea la subventana SearchSettings
-
             // crea la subventana ExecutionTimeLog
             Scene sceneExecutionTimeLog = new Scene(loaderExecutionTimeLog.load(), 445, 460);
             stageExecutionTimeLog.setTitle("Execution Time Log");
@@ -211,7 +159,6 @@ public class CSVSorterAndSearcherController {
                 windowEvent.consume();}
             );
             ExecutionTimeLogC = loaderExecutionTimeLog.getController();
-
 
         } catch (IOException e){
             Utilities.alert(
@@ -259,18 +206,41 @@ public class CSVSorterAndSearcherController {
 
     }
 
-    @FXML
-    protected void clearTableView(){
+    private void disableAllMenuButtons(boolean disableAllButtons){
+        menuData.setDisable(disableAllButtons);
+        menuSort.setDisable(disableAllButtons);
+        menuSearch.setDisable(disableAllButtons);
+        menuView.setDisable(disableAllButtons);
+    }
+
+    private void resetSettings(){
+        // reset tableView
         tableView.getItems().clear();
         tableView.getColumns().clear();
-        if(!menuItemExport.isDisable() || !menuItemExportAs.isDisable()){
-            modifyExportButtons();
-            // tambien se puede limpiar borrando el contenido del arreglo referenciado
-            // en los datos del tableView
-        }
+        // reset Sort settings
+        sort_selectOrderBy(true);
+
+        // reset View
+        rawDataView = true;
+        labelTextDataView.setText("Raw data");
         ExecutionTimeLogC.clear();
 
+        /*
+        Por el momento solo se restablece:
+        - TableView
+        - OrderBy (Sort) (Falta completar mas)
+        - View
+        NOTA: Falta agregar el restablecimiento de los
+        futuros metodos que se agreguen a la aplicacion
+         */
 
+    }
+
+    @FXML
+    protected void clearTableView(){
+        disableExportButtons(true);
+        disableAllMenuButtons(true);
+        resetSettings();
     }
 
     @FXML
@@ -304,9 +274,9 @@ public class CSVSorterAndSearcherController {
     }
 
     @FXML
-    protected void selectSortingMode(boolean optSortingMode){
-        sortingModeASC = optSortingMode;
-        labelTextSortingMode.setText(optSortingMode ? "ASC" : "DESC");
+    protected void sort_selectOrderBy(boolean optOrderBy){
+        sort_orderBy = optOrderBy;
+        labelTextSortingMode.setText(optOrderBy ? "ASC" : "DESC");
         /*
         if (optSortingMode){
             labelTextSortingMode.setText("ASC");
@@ -343,7 +313,6 @@ public class CSVSorterAndSearcherController {
 
     }
 
-
     @FXML
     protected void selectSortingMethod(String Algorithm){
         labelTextSortingMethod.setText(Algorithm);
@@ -355,13 +324,8 @@ public class CSVSorterAndSearcherController {
     }
 
     @FXML
-    protected void runSortSettings(){
-        if (!stageSortSettings.isShowing()){
-            stageSortSettings.show();
-        }else{
-            stageSortSettings.hide();
-            stageSortSettings.show();
-        }
+    protected void executeSorting(){
+        // ejecuta el ordenamiento
     }
 
     @FXML

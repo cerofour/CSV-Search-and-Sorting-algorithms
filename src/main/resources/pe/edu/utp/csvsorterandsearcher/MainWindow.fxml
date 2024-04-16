@@ -59,7 +59,7 @@
             <MenuItem fx:id="menuItemQuit" mnemonicParsing="false" onAction="#quit" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Data">
+        <Menu fx:id="menuData" mnemonicParsing="false" text="Data">
           <items>
             <MenuItem mnemonicParsing="false" text="Datatypes" />
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -68,23 +68,23 @@
         </Menu>
         <Menu fx:id="menuSort" mnemonicParsing="false" text="Sort">
           <items>
-                  <Menu fx:id="menuSortBy" mnemonicParsing="false" text="Sort by...">
-                    <items>
+                  <Menu fx:id="menuSortBy" mnemonicParsing="false" text="Sort by..." />
+                  <Menu fx:id="menuAlgorithm" mnemonicParsing="false" text="Algorithm" />
+                  <Menu fx:id="menuSortOrderBy" mnemonicParsing="false" text="Order by...">
+                     <items>
                         <MenuItem fx:id="menuItemSortASC" mnemonicParsing="false" text="ASC" />
                       <MenuItem fx:id="menuItemSortDESC" mnemonicParsing="false" text="DESC" />
-                    </items>
+                     </items>
                   </Menu>
-                  <Menu fx:id="menuAlgorithm" mnemonicParsing="false" text="Algorithm" />
-                  <MenuItem mnemonicParsing="false" onAction="#runSortSettings" text="Settings" />
-            <MenuItem mnemonicParsing="false" text="Run" />
+            <MenuItem fx:id="menuItemRunSort" mnemonicParsing="false" onAction="#executeSorting" text="Run" />
           </items>
         </Menu>
-            <Menu mnemonicParsing="false" text="Search">
+            <Menu fx:id="menuSearch" mnemonicParsing="false" text="Search">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="View">
+            <Menu fx:id="menuView" mnemonicParsing="false" text="View">
               <items>
                 <MenuItem fx:id="menuItemRawData" mnemonicParsing="false" onAction="#showRawData" text="Raw data" />
                   <MenuItem fx:id="menuItemProcessedData" mnemonicParsing="false" onAction="#showProcessedData" text="Processed Data" />
@@ -103,15 +103,15 @@
       <Pane prefHeight="74.0" prefWidth="789.0">
          <children>
             <Label layoutX="11.0" layoutY="12.0" prefHeight="17.0" prefWidth="109.0" text="Execution time:" />
-            <Label fx:id="labelTime" layoutX="106.0" layoutY="13.0" prefHeight="17.0" prefWidth="71.0" style="-fx-text-fill: green;" text="0.0 ms" />
-            <Label layoutX="200.0" layoutY="13.0" prefHeight="17.0" prefWidth="82.0" text="Sorting Mode: " />
-            <Label layoutX="380.0" layoutY="13.0" text="Sorting Method: " />
-            <Label layoutX="591.0" layoutY="13.0" text="Search Method:" />
-            <Label fx:id="labelTextSortingMode" layoutX="282.0" layoutY="13.0" style="-fx-text-fill: blue;" text="ASC" />
-            <Label fx:id="labelTextSortingMethod" layoutX="470.0" layoutY="13.0" style="-fx-text-fill: PURPLE;" text="None" />
-            <Label fx:id="labelTextSearchMethod" layoutX="679.0" layoutY="13.0" style="-fx-text-fill: RED;" text="None" />
-            <Label layoutX="788.0" layoutY="13.0" text="Data View: " />
-            <Label fx:id="labelTextDataView" layoutX="850.0" layoutY="13.0" style="-fx-text-fill: BROWN;" text="Raw Data" />
+            <Label fx:id="labelTime" layoutX="100.0" layoutY="13.0" prefHeight="17.0" prefWidth="71.0" style="-fx-text-fill: green;" text="0.0 ms" />
+            <Label layoutX="189.0" layoutY="13.0" prefHeight="17.0" prefWidth="82.0" text="Order by:" />
+            <Label layoutX="309.0" layoutY="13.0" text="Sorting Method: " />
+            <Label layoutX="496.0" layoutY="13.0" text="Search Method:" />
+            <Label fx:id="labelTextSortingMode" layoutX="247.0" layoutY="13.0" style="-fx-text-fill: blue;" text="ASC" />
+            <Label fx:id="labelTextSortingMethod" layoutX="403.0" layoutY="13.0" style="-fx-text-fill: PURPLE;" text="None" />
+            <Label fx:id="labelTextSearchMethod" layoutX="588.0" layoutY="13.0" style="-fx-text-fill: RED;" text="None" />
+            <Label layoutX="673.0" layoutY="13.0" text="Data View: " />
+            <Label fx:id="labelTextDataView" layoutX="737.0" layoutY="13.0" style="-fx-text-fill: BROWN;" text="Raw Data" />
          </children>
       </Pane>
   </children>
