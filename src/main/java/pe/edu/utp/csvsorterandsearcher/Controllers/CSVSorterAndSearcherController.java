@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import pe.edu.utp.csvsorterandsearcher.CSV.CSVIntermediateRepresentation;
+import pe.edu.utp.csvsorterandsearcher.CSV.CSVReader;
 import pe.edu.utp.csvsorterandsearcher.CSVSorterAndSearcher;
 import pe.edu.utp.csvsorterandsearcher.Utilities.ExportModes;
 import pe.edu.utp.csvsorterandsearcher.Utilities.Utilities;
@@ -102,6 +104,11 @@ public class CSVSorterAndSearcherController {
         }
         Utilities.writeRecordRecentFiles(file.getPath());
         updateRecentFiles();
+        CSVReader reader = new CSVReader(file);
+        CSVIntermediateRepresentation ir = reader.readWholeFile();
+
+        System.out.println(ir);
+
         disableExportButtons(false); // esta linea deberia ponerse cuando se detectó un ordenamiento o busqueda
         disableAllMenuButtons(false);
     }
