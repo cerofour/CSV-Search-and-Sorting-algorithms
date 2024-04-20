@@ -12,7 +12,7 @@ public class CSVSorterAndSearcher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CSVSorterAndSearcher.class.getResource("MainWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 940, 570);
+        Scene scene = new Scene(fxmlLoader.load(), 820, 640);
         stage.setTitle("CSVSorterAndSearcher");
         stage.setScene(scene);
         stage.setResizable(false);

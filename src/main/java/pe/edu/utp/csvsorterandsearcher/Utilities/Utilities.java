@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Utilities {
-    /*
-     TODO: POR ALGUN MOTIVO, EL logRecentFiles.log no lo toma de Resource,
-      lo toma de target...csvsortedandsearcher/logRecentFiles.log
-      no hay ningun inconveniente con que lo tome de ahi, es solo una observación
-     */
+
     private static final String _FILELOG_ =
             Objects.requireNonNull(
                     CSVSorterAndSearcher.class

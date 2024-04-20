@@ -2,6 +2,7 @@ package pe.edu.utp.csvsorterandsearcher.CSV;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /***
  * CSVReader class. The job of this class is to create an intermediate representation
@@ -116,6 +117,7 @@ public class CSVReader {
 
         for (int i = 0; i < csvHeaders.length; i++)
             table.add(new ArrayList<>());
+
 
         CSVIntermediateRepresentation ir = new CSVIntermediateRepresentation(csvHeaders, null);
         //ir.allocateColumnsArray(file_size);

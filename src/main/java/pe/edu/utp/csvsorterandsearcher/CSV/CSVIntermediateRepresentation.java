@@ -2,6 +2,7 @@ package pe.edu.utp.csvsorterandsearcher.CSV;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * CSVTable
@@ -27,9 +28,10 @@ public class CSVIntermediateRepresentation {
 
 	private void initializeHeaders(String[] headers, FieldType[] types) {
 		for (int i = 0; i < this.headers.length; i++) {
-			this.headers[i].name = headers[i];
-			this.headers[i].type = types[i];
-			this.headers[i].maxLength = 0;
+			this.headers[i] = new CSVHeader(headers[i], FieldType.String, 0 );
+			//this.headers[i].name = headers[i];
+			//this.headers[i].type = types[i];
+			//this.headers[i].maxLength = 0;
 		}
 	}
 
@@ -46,6 +48,10 @@ public class CSVIntermediateRepresentation {
 		return columns[n];
 	}
 
+	public String[][] getColumns(){ return columns;}
+
+	public CSVHeader[] getHeaders(){ return headers;}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -58,6 +64,7 @@ public class CSVIntermediateRepresentation {
 			for (int j = 0; j < columns[i].length; j++) {
 				sb.append(String.format("%s ", columns[i][j]));
 			}
+			//sb.append(String.join(" ", columns[i])); You can use this to simplify said for
 			sb.append("\n");
 		}
 		return sb.toString();
