@@ -16,9 +16,7 @@ public class CSVSorterAndSearcher extends Application {
         stage.setTitle("CSVSorterAndSearcher");
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setOnCloseRequest(windowEvent -> {
-            Platform.exit();
-        });
+        stage.setOnCloseRequest(windowEvent -> Platform.exit());
         stage.show();
     }
 

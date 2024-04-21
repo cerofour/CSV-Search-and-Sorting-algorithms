@@ -54,6 +54,31 @@ public class TableV {
 
     }
 
+    public void setItems(String[][] items, int[] indices){
+        /*
+         - This method receives the list of indices that are returned
+           by the sorting methods (this is so that it sorts the data based on the given indices)
+         - The ObservableList is filled but this time with the data horizontally
+         - There is no need to add the tableView.setItems(), since if there is a
+           change in this.items this will automatically be reflected in the tableView
+         */
+        if(headerslength == 0 && items.length == 0){
+            return;
+        }
+        if(!this.items.isEmpty()){
+            this.items.clear();
+        }
+
+        for(int i = 0; i < indices.length; i++){
+            this.items.add(i, new String[headerslength]);
+            for (int j = 0; j < headerslength; j++) {
+                this.items.get(i)[j] = items[j][indices[i]];
+            }
+
+        }
+
+    }
+
     public void clear(TableView<String[]> tableView){
         deleteItems(tableView);
         deleteColumns(tableView);
