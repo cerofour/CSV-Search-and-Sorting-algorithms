@@ -5,12 +5,11 @@ import java.lang.reflect.Field;
 public class CSVHeader {
 	public String name;
 	public FieldType type;
-	public int maxLength;
+	//public int maxLength;
 
 	CSVHeader(String n, FieldType ty, int ml) {
 		name = n;
 		type = ty;
-		maxLength = ml;
 	}
 
 	public void setName(String name) {
@@ -19,9 +18,5 @@ public class CSVHeader {
 
 	public void setType(FieldType type) {
 		this.type = type;
-	}
-
-	public void setMaxLength(int maxLength) {
-		this.maxLength = maxLength;
 	}
 }

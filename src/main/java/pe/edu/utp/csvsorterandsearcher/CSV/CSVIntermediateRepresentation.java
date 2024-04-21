@@ -39,11 +39,6 @@ public class CSVIntermediateRepresentation {
 		columns = tab;
 	}
 
-	public void setMaxLengths(int[] maxLengths) {
-		for (int i = 0; i < Math.min(maxLengths.length, headers.length); i++)
-			headers[i].maxLength = maxLengths[i];
-	}
-
 	public String[] getColumn(int n) {
 		return columns[n];
 	}

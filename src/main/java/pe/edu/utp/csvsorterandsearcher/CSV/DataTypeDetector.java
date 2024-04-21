@@ -1,11 +1,11 @@
-package pe.edu.utp.csvsorterandsearcher.Utilities;
+package pe.edu.utp.csvsorterandsearcher.CSV;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class DataTypeDetector {
 
-    private static boolean isDouble(String value){
+    private static boolean isDouble(String value) {
         try {
             Double.parseDouble(value);
             return true;
@@ -14,29 +14,29 @@ public class DataTypeDetector {
         }
     }
 
-    private static boolean isDate(String value){
-        try{
+    private static boolean isDate(String value) {
+        try {
             LocalDate.parse(value);
             return true;
-        }catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             return false;
         }
     }
 
-    private static boolean isBoolean(String value){
+    private static boolean isBoolean(String value) {
         return value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false");
     }
 
-    public static FieldType dataTypeDetector(String value){
-        if(DataTypeDetector.isDouble(value)){
-            return FieldType.Numeric;
+    public static FieldType dataTypeDetector(String value) {
+        if (DataTypeDetector.isDouble(value)) {
+            return FieldType.Double;
+
         } else if (DataTypeDetector.isDate(value)) {
             return FieldType.Date;
 
-        } else if (DataTypeDetector.isBoolean(value)){
+        } else if (DataTypeDetector.isBoolean(value)) {
             return FieldType.Boolean;
-        }
-        else{
+        } else {
             return FieldType.String;
         }
     }

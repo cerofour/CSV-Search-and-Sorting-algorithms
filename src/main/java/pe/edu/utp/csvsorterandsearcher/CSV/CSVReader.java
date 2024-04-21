@@ -2,7 +2,6 @@ package pe.edu.utp.csvsorterandsearcher.CSV;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /***
  * CSVReader class. The job of this class is to create an intermediate representation
@@ -16,9 +15,13 @@ public class CSVReader {
     boolean useFileHeaders;
     boolean atEof;
 
+    // type-check values on every iteration of the reading proccess
+    // if false, the reader will type-check the values everytime it reads a line
+    // from the CSV
     boolean alwaysTypeCheck;
 
     String[] csvHeaders;
+    FieldType[] types;
 
     // by default a comma (",")
     String valueSeparator;
@@ -31,6 +34,7 @@ public class CSVReader {
             csvHeaders = null;
             atEof = false;
             valueSeparator = ",";
+            alwaysTypeCheck = false;
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -72,15 +76,6 @@ public class CSVReader {
         return row;
     }
 
-    private void resetReader() {
-        try {
-            reader.reset();
-        } catch (IOException e) {
-            System.err.println("Exception throw while trying to reset the file reader: " + e.getMessage());
-            System.exit(-1);
-        }
-    }
-
     private void generateHeaders() {
 
         String[] row = nextRow();
@@ -98,6 +93,16 @@ public class CSVReader {
             for (int i = 0; i < row.length; i++)
                 csvHeaders[i] = String.format("C%d", i);
         }
+
+        types = new FieldType[csvHeaders.length];
+    }
+
+    private void typeCheck(String[] row) {
+
+        assert(row.length <= csvHeaders.length);
+
+        for (int i = 0; i < Math.min(csvHeaders.length, row.length); i++)
+            types[i] = DataTypeDetector.dataTypeDetector(row[i]);
     }
 
     /**
@@ -112,24 +117,34 @@ public class CSVReader {
 
         generateHeaders();
 
-        ArrayList<ArrayList<String>> table = new ArrayList<>();
-        int[] maxLengths = new int[csvHeaders.length];
+            ArrayList<ArrayList<String>> table = new ArrayList<>();
+            FieldType[] types = new FieldType[csvHeaders.length];
+            int[] maxLengths = new int[csvHeaders.length];
 
         for (int i = 0; i < csvHeaders.length; i++)
             table.add(new ArrayList<>());
 
 
         CSVIntermediateRepresentation ir = new CSVIntermediateRepresentation(csvHeaders, null);
-        //ir.allocateColumnsArray(file_size);
+
+        String[] lastRow = null;
 
         for (String[] row = nextRow(); !atEof || row != null; row = nextRow()) {
             assert Math.min(csvHeaders.length, row.length) == csvHeaders.length;
+
+            if (alwaysTypeCheck)
+                typeCheck(row);
+
             for (int i = 0; i < csvHeaders.length; i++) {
                 if (row[i].length() > maxLengths[i])
                     maxLengths[i] = row[i].length();
                 table.get(i).add(row[i]);
             }
+
+            lastRow = row;
         }
+
+        typeCheck(lastRow);
 
         String[][] tableArray = new String[csvHeaders.length][];
         // now convert the double ArrayList to a String[][]
@@ -138,7 +153,6 @@ public class CSVReader {
         }
 
         ir.setTable(tableArray);
-        ir.setMaxLengths(maxLengths);
         return ir;
     }
 }
