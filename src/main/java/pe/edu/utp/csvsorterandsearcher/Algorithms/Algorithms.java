@@ -22,7 +22,7 @@ public class Algorithms {
         // The timer should be applied here.
         int[] indices = switch (dataType){
             case String -> algorithms[columnIndex].sort((String[]) convertedData);
-            case Boolean -> algorithms[columnIndex].sort((Boolean[]) convertedData);
+            case Boolean -> algorithms[columnIndex].sort((Integer[]) convertedData);
             case Double -> algorithms[columnIndex].sort((Double[]) convertedData);
             case Date -> algorithms[columnIndex].sort((LocalDate[]) convertedData);
         };
@@ -32,12 +32,14 @@ public class Algorithms {
 
     private static Object[] dataTypeConversion(String[] items, FieldType dataType){
         /*
-            - How do we do with boolean data?
-            - Remove Integer
+            - The boolean values are replaced by 0 and 1
+              to work that arrangement with Integer
          */
         return switch (dataType){
             case String -> items;
-            case Boolean -> Stream.of(items).map(Boolean::parseBoolean).toArray();
+            case Boolean -> Stream.of(items)
+                    .map(i -> (i.equalsIgnoreCase("true") ? 1 : 0 ))
+                    .toArray();
             case Double -> Stream.of(items).map(Double::parseDouble).toArray();
             case Date -> Stream.of(items).map(LocalDate::parse).toArray();
         };
