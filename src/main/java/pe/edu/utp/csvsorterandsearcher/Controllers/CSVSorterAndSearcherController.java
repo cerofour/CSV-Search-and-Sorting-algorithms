@@ -19,74 +19,48 @@ import pe.edu.utp.csvsorterandsearcher.Utilities.Utilities;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class CSVSorterAndSearcherController {
 
     @FXML
-    private Label labelTime;
+    private Label labelTextTime, labelTextSortBy, labelTextSearchBy, labelTextSortingMode;
 
     @FXML
-    private Label labelTextSortBy;
-
-    @FXML
-    private Label labelTextSortingMode;
-
-    @FXML
-    private Label labelTextSortingMethod;
-
-    @FXML
-    private Label labelTextSearchMethod;
-
-    @FXML
-    private TableView<String[]> tableView;
+    private Label labelTextSortingMethod, labelTextSearchMethod, labelTextDataView;
 
     @FXML
     private CheckMenuItem checkMenuItemOptHeaders;
 
     @FXML
-    private Menu menuData, menuSort, menuSearch, menuView;
+    private Menu menuData, menuSort, menuSearch, menuView, menuRecentFiles;
 
     @FXML
-    private Menu menuRecentFiles;
+    private Menu menuSortBy, menuSearchBy, menuSortOrderBy;
 
     @FXML
-    private MenuItem menuItemSortASC;
+    private Menu menuAlgorithm_SO, menuAlgorithm_SE;
 
     @FXML
-    private MenuItem menuItemSortDESC;
+    private MenuItem menuItemSortASC, menuItemSortDESC;
 
     @FXML
-    private Menu menuSortOrderBy;
+    private MenuItem menuItemExport, menuItemExportAs;
 
     @FXML
-    private Menu menuSortBy;
-
-    @FXML
-    private Menu menuAlgorithm;
-
-    @FXML
-    private MenuItem menuItemExport;
-
-    @FXML
-    private MenuItem menuItemExportAs;
-
-    private Stage stageExecutionTimeLog = new Stage();
-
-    @FXML
-    private Label labelTextDataView;
+    private TableView<String[]> tableView;
 
 
+    private FileChooser fileChooserOpen, fileChooserExport, fileChooserExportAs;
     private File file;
-    private CSVIntermediateRepresentation ir;
-    public static boolean sort_orderBy = true;
-    public static boolean rawDataView = true;
-    public static int columnIndexToSelectedInSort = -1;
-    public static int columnIndexToSelectedInSearch = -1;
-    public TableV tableV;
     private ExecutionTimeLogController ExecutionTimeLogC;
-    private FileChooser fileChooserOpen;
-    private FileChooser fileChooserExport;
-    private FileChooser fileChooserExportAs;
+    private CSVIntermediateRepresentation ir;
+    private Stage stageExecutionTimeLog = new Stage();
+    public TableV tableV;
+
+    public static boolean sort_orderBy = true, rawDataView = true;
+    public static int columnIndexToSelectedInSort = -1, columnIndexToSelectedInSearch = -1;
+
 
     public void initialize(){
         createSubWindows();
@@ -94,17 +68,14 @@ public class CSVSorterAndSearcherController {
         loadDifferentFileChooser();
         disableExportButtons(true);
         disableAllMenuButtons(true);
+        addAlgorithmMethodMenu();
+        //
+        tableV = new TableV(tableView);
         //
         menuItemSortASC.setOnAction(event -> {sort_selectOrderBy(true);});
         menuItemSortDESC.setOnAction(event -> {sort_selectOrderBy(false);});
         menuSortOrderBy.getItems().set(0, menuItemSortASC);
         menuSortOrderBy.getItems().set(1, menuItemSortDESC);
-        //
-        addAlgorithmMethodMenu();
-        //
-        tableV = new TableV(tableView);
-
-
     }
 
     @FXML
@@ -202,24 +173,34 @@ public class CSVSorterAndSearcherController {
     }
 
     private void addAlgorithmMethodMenu(){
+        // add sorting method algorithms
         MenuItem QuickSort = new MenuItem("QuickSort");
         QuickSort.setOnAction(actionEvent -> {selectSortingMethod("QuickSort");});
-        menuAlgorithm.getItems().add(QuickSort);
+        menuAlgorithm_SO.getItems().add(QuickSort);
+        // add search method algorithms
+
+
     }
 
     private void setColumnsToChoose(){
         /*
-        - This method adds the columns to select in the Sort by menu
+        - This method adds the columns to select in the Sort and Search by menu
          */
-        if(menuSortBy.getItems() != null){
-            menuSortBy.getItems().clear();
-        }
         CSVHeader[] columns = ir.getHeaders();
+        Stream.of(menuSortBy, menuSearchBy)
+                .forEach(element -> {
+                    if (element.getItems() != null)
+                        element.getItems().clear();
+                });
+
         for (int i = 0; i < columns.length; i++) {
-            MenuItem column = new MenuItem(columns[i].name);
+            MenuItem columnSort = new MenuItem(columns[i].name);
+            MenuItem columnSearch = new MenuItem(columns[i].name);
             int finalI = i;
-            column.setOnAction(event -> sort_selectSortBy(finalI));
-            menuSortBy.getItems().add(column);
+            columnSort.setOnAction(event -> sort_selectSortBy(finalI));
+            columnSearch.setOnAction(event -> search_selectSearchBy(finalI));
+            menuSortBy.getItems().add(columnSort);
+            menuSearchBy.getItems().add(columnSearch);
         }
     }
 
@@ -262,11 +243,16 @@ public class CSVSorterAndSearcherController {
         // reset tableView
         tableView.getItems().clear();
         tableView.getColumns().clear();
+
         // reset Sort settings
         sort_selectOrderBy(true);
         menuSortBy.getItems().clear();
         columnIndexToSelectedInSort = -1;
         labelTextSortBy.setText("None");
+
+        // reset Search settings
+        columnIndexToSelectedInSearch = -1;
+        labelTextSearchBy.setText("None");
 
         // reset View
         rawDataView = true;
@@ -326,6 +312,11 @@ public class CSVSorterAndSearcherController {
         labelTextSortBy.setText(ir.getHeaders()[index].name);
     }
 
+    private void search_selectSearchBy(int index) {
+        columnIndexToSelectedInSearch = index;
+        labelTextSearchBy.setText(ir.getHeaders()[index].name);
+    }
+
     @FXML
     private void export(){
         /*
@@ -359,6 +350,7 @@ public class CSVSorterAndSearcherController {
                 ExportModes.ExportAsCSV(ir.getHeaders(), ir.getColumns(), fileExport.getPath());
                 break;
             case "TXT":
+                ExportModes.ExportAsTXT(ir.getHeaders(), ir.getColumns(), fileExport.getPath());
                 break;
             case "JSON":
                 ExportModes.ExportAsJSON(ir.getHeaders(), ir.getColumns(), fileExport.getPath());
@@ -373,13 +365,11 @@ public class CSVSorterAndSearcherController {
 
     }
 
-    @FXML
-    protected void selectSortingMethod(String Algorithm){
+    private void selectSortingMethod(String Algorithm){
         labelTextSortingMethod.setText(Algorithm);
     }
 
-    @FXML
-    protected void selectSearchMethod(String SearchMetod){
+    private void selectSearchMethod(String SearchMetod){
         labelTextSearchMethod.setText(SearchMetod);
     }
 
@@ -387,6 +377,11 @@ public class CSVSorterAndSearcherController {
     protected void executeSorting(){
         // ejecuta el ordenamiento
         System.out.println();
+    }
+
+    @FXML
+    protected void executeSearcher(){
+        //
     }
 
     @FXML

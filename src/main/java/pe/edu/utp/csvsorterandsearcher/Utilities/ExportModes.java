@@ -72,8 +72,22 @@ public class ExportModes {
 
     }
 
-    public static void ExportAsTXT(){
-
+    public static void ExportAsTXT(CSVHeader[] headers, String[][] data, String path){
+        content = new StringBuilder();
+        content.append("// Data Export By: CSVSorterAndSearcher\n\n");
+        content.append("[*] Headers:\n");
+        content.append(
+                String.join(" ", Stream.of(headers).map(i -> i.name).toArray(String[]::new))
+        );
+        content.append("\n\n[*] Rows: \n");
+        for (int i = 0; i < data[0].length;i++){
+            for (int j = 0; j < headers.length; j++) {
+                content.append(String.format("%s ", data[j][i]));
+            }
+            content.append("\n");
+        }
+        Utilities.saveData(content, path);
+        content.delete(0, content.length());
     }
 
     public static void ExportAsXML(CSVHeader[] headers, String[][] data, String path){
@@ -93,8 +107,6 @@ public class ExportModes {
         content.append("</data>");
         Utilities.saveData(content, path);
         content.delete(0, content.length());
-        System.out.println(content.toString());
-
     }
 
     public static void ExportAsJSON(CSVHeader[] headers, String[][] data, String path){
