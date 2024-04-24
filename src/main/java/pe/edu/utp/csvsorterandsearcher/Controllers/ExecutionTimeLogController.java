@@ -42,5 +42,10 @@ public class ExecutionTimeLogController {
         //tableViewExecutionTimeLog.getItems().clear();
     }
 
+    @FXML
+    protected void deleteData(){
+        clear();
+    }
+
 }
 

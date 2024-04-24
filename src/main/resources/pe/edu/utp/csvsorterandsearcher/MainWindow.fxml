@@ -39,6 +39,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -100,7 +101,7 @@
          <children>
             <Label layoutX="432.0" layoutY="57.0" prefHeight="17.0" prefWidth="109.0" text="Execution time:" />
             <Label fx:id="labelTextTime" layoutX="524.0" layoutY="57.0" prefHeight="17.0" prefWidth="71.0" style="-fx-text-fill: green;" text="0 ms" />
-            <Label layoutX="673.0" layoutY="7.0" prefHeight="17.0" prefWidth="82.0" text="Order by:" />
+            <Label layoutX="674.0" layoutY="7.0" prefHeight="17.0" prefWidth="82.0" text="Order by:" />
             <Label layoutX="147.0" layoutY="7.0" text="Sorting Method: " />
             <Label layoutX="147.0" layoutY="32.0" text="Search Method:" />
             <Label fx:id="labelTextSortingMode" layoutX="733.0" layoutY="7.0" style="-fx-text-fill: blue;" text="ASC" />
@@ -126,6 +127,8 @@
                </font></Label>
             <Label layoutX="432.0" layoutY="32.0" text="Search by: " />
             <Label fx:id="labelTextSearchBy" layoutX="497.0" layoutY="32.0" style="-fx-text-fill: red;" text="None" />
+            <TextField fx:id="itemToSearch" layoutX="674.0" layoutY="52.0" prefHeight="25.0" prefWidth="129.0" promptText="Item to search" />
+            <Label layoutX="674.0" layoutY="32.0" text="Item to search:" />
          </children>
       </Pane>
   </children>
