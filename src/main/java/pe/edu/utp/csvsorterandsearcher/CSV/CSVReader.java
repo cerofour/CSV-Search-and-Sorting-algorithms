@@ -26,6 +26,8 @@ public class CSVReader {
     // by default a comma (",")
     String valueSeparator;
 
+    String[] bufferedRow = null;
+
     public CSVReader(File fi) {
         try {
             file = new FileInputStream(fi);
@@ -67,6 +69,13 @@ public class CSVReader {
     }
 
     private String[] nextRow() {
+
+        if (bufferedRow != null) {
+            String[] r = bufferedRow;
+            bufferedRow = null;
+            return r;
+        }
+
         String line = nextLine();
         if (atEof || line == null)
             return null;
@@ -78,20 +87,21 @@ public class CSVReader {
 
     private void generateHeaders() {
 
-        String[] row = nextRow();
-        if (row == null) // empty file
-            return;
-
         // maybe handle the edge case where the first line is ""
         // but I don't think our professor is that evil
 
         // expects this.reset to be at the start of the file
         if (useFileHeaders) {
+            String[] row = nextRow();
+            if (row == null) // empty file
+                return;
             csvHeaders = row;
         } else {
+            String[] row = nextRow();
             csvHeaders = new String[row.length];
             for (int i = 0; i < row.length; i++)
                 csvHeaders[i] = String.format("C%d", i);
+            bufferedRow = row;
         }
 
         types = new FieldType[csvHeaders.length];
