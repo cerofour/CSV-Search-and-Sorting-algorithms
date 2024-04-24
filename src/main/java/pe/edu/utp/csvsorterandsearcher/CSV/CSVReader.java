@@ -145,14 +145,11 @@ public class CSVReader {
         typeCheck(lastRow);
 
         CSVIntermediateRepresentation ir = new CSVIntermediateRepresentation(csvHeaders, types);
-
         String[][] tableArray = new String[csvHeaders.length][];
         // now convert the double ArrayList to a String[][]
         for (int i = 0; i < csvHeaders.length; i++) {
             tableArray[i] = table.get(i).toArray(new String[0]);
         }
-
-        ir.setTypes(types);
         ir.setTable(tableArray);
         return ir;
     }
