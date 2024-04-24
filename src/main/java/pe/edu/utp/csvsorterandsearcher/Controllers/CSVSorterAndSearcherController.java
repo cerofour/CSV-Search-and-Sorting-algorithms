@@ -9,9 +9,10 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pe.edu.utp.csvsorterandsearcher.Algorithms.OrderedIndexGenerator;
+import pe.edu.utp.csvsorterandsearcher.Algorithms.Search.BinarySearch;
 import pe.edu.utp.csvsorterandsearcher.Algorithms.Search.InterpolationSearcher;
 import pe.edu.utp.csvsorterandsearcher.Algorithms.Search.SearchAlgorithm;
-import pe.edu.utp.csvsorterandsearcher.Algorithms.Search.SequentialSearcher;
+import pe.edu.utp.csvsorterandsearcher.Algorithms.Search.SequentialSearch;
 import pe.edu.utp.csvsorterandsearcher.Algorithms.Sort.BubbleSort;
 import pe.edu.utp.csvsorterandsearcher.Algorithms.Sort.OptimizedBubbleSort;
 import pe.edu.utp.csvsorterandsearcher.Algorithms.Sort.QuickSort;
@@ -258,7 +259,7 @@ public class CSVSorterAndSearcherController {
 
         String[][] nameAlgorithms = {
                 {"QuickSort", "BubbleSort", "OptimizedBubbleSort"},
-                {"SequentialSearcher", "InterpolationSearcher"}
+                {"SequentialSearch", "InterpolationSearch", "BinarySearch"}
         };
         so_Algo = new SortingAlgorithm[]{
                 QuickSort::sort,
@@ -266,8 +267,9 @@ public class CSVSorterAndSearcherController {
                 OptimizedBubbleSort::sort
         };
         se_Algo = new SearchAlgorithm[]{
-                SequentialSearcher::search,
-                InterpolationSearcher::search
+                SequentialSearch::search,
+                InterpolationSearcher::search,
+                BinarySearch::search
         };
 
         for (int i = 0; i < nameAlgorithms[0].length; i++) {
