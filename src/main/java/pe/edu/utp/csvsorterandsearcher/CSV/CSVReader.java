@@ -117,9 +117,8 @@ public class CSVReader {
 
         generateHeaders();
 
-            ArrayList<ArrayList<String>> table = new ArrayList<>();
-            FieldType[] types = new FieldType[csvHeaders.length];
-            int[] maxLengths = new int[csvHeaders.length];
+        ArrayList<ArrayList<String>> table = new ArrayList<>();
+        int[] maxLengths = new int[csvHeaders.length];
 
         for (int i = 0; i < csvHeaders.length; i++)
             table.add(new ArrayList<>());
@@ -153,6 +152,7 @@ public class CSVReader {
             tableArray[i] = table.get(i).toArray(new String[0]);
         }
 
+        ir.setTypes(types);
         ir.setTable(tableArray);
         return ir;
     }

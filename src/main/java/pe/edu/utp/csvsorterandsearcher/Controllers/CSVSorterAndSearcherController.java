@@ -213,7 +213,6 @@ public class CSVSorterAndSearcherController {
             algo.setOnAction(actionEvent -> selectSearchMethod(nameAlgorithms[1][finalI], finalI));
             menuAlgorithm_SE.getItems().add(algo);
         }
-
     }
 
     private void setColumnsToChoose(){

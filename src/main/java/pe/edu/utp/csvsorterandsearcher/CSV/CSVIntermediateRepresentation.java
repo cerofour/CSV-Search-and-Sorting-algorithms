@@ -38,6 +38,11 @@ public class CSVIntermediateRepresentation {
 	public void setTable(String[][] tab) {
 		columns = tab;
 	}
+	public void setTypes(FieldType[] types) {
+		for (int i = 0; i < headers.length; i++) {
+			headers[i].type = types[i];
+		}
+	}
 
 	public String[] getColumn(int n) {
 		return columns[n];
