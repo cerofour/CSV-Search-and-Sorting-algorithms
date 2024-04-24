@@ -124,8 +124,7 @@ public class CSVReader {
         for (int i = 0; i < csvHeaders.length; i++)
             table.add(new ArrayList<>());
 
-
-        CSVIntermediateRepresentation ir = new CSVIntermediateRepresentation(csvHeaders, null);
+        //CSVIntermediateRepresentation ir = new CSVIntermediateRepresentation(csvHeaders, null);
 
         String[] lastRow = null;
 
@@ -145,6 +144,8 @@ public class CSVReader {
         }
 
         typeCheck(lastRow);
+
+        CSVIntermediateRepresentation ir = new CSVIntermediateRepresentation(csvHeaders, types);
 
         String[][] tableArray = new String[csvHeaders.length][];
         // now convert the double ArrayList to a String[][]

@@ -1,11 +1,13 @@
-package pe.edu.utp.csvsorterandsearcher.Algorithms;
+package pe.edu.utp.csvsorterandsearcher.Algorithms.Sort;
+
+import pe.edu.utp.csvsorterandsearcher.Algorithms.Swap;
 
 /**
  * Bubble sort algorithm.
  * Best suitable for small datasets.
  * @timeComplexity O(n^2)
  */
-public class BubbleSort implements SortingAlgorithm {
+public class BubbleSort {
 
 	/**
 	 * Implementation based on: https://faculty.cs.niu.edu/~mcmahon/CS241/Notes/Sorting_Algorithms/bubble_sort.html

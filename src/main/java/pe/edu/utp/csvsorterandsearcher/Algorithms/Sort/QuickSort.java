@@ -1,11 +1,13 @@
-package pe.edu.utp.csvsorterandsearcher.Algorithms;
+package pe.edu.utp.csvsorterandsearcher.Algorithms.Sort;
+
+import pe.edu.utp.csvsorterandsearcher.Algorithms.Swap;
 
 /**
  * The so-called fastest sorting algorithm.
  * Best suitable for larger datasets.
  * @timeComplexity O(n*log(n))
  */
-public class QuickSort implements SortingAlgorithm {
+public class QuickSort {
 	public static <T extends Comparable<T>> void sort(T[] arr) {
 		quickSort(arr, 0, arr.length - 1);
 	}

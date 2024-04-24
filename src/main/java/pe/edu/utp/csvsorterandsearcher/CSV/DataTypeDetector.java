@@ -2,6 +2,7 @@ package pe.edu.utp.csvsorterandsearcher.CSV;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.stream.Stream;
 
 public class DataTypeDetector {
 
@@ -40,5 +41,17 @@ public class DataTypeDetector {
             return FieldType.String;
         }
     }
+
+    public static Object[] dataTypeConversion(String[] items, FieldType dataType){
+        return switch (dataType){
+            case String -> items;
+            case Boolean -> Stream.of(items)
+                    .map(i -> (i.equalsIgnoreCase("true") ? 1 : 0 ))
+                    .toArray();
+            case Double -> Stream.of(items).map(Double::parseDouble).toArray();
+            case Date -> Stream.of(items).map(LocalDate::parse).toArray();
+        };
+    }
+
 
 }

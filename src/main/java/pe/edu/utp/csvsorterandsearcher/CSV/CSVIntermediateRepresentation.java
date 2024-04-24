@@ -28,7 +28,7 @@ public class CSVIntermediateRepresentation {
 
 	private void initializeHeaders(String[] headers, FieldType[] types) {
 		for (int i = 0; i < this.headers.length; i++) {
-			this.headers[i] = new CSVHeader(headers[i], FieldType.String, 0 );
+			this.headers[i] = new CSVHeader(headers[i], types[i]);
 			//this.headers[i].name = headers[i];
 			//this.headers[i].type = types[i];
 			//this.headers[i].maxLength = 0;

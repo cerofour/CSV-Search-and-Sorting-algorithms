@@ -7,7 +7,7 @@ public class CSVHeader {
 	public FieldType type;
 	//public int maxLength;
 
-	CSVHeader(String n, FieldType ty, int ml) {
+	CSVHeader(String n, FieldType ty) {
 		name = n;
 		type = ty;
 	}

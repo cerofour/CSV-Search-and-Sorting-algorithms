@@ -61,7 +61,6 @@
         </Menu>
         <Menu fx:id="menuData" mnemonicParsing="false" text="Data">
           <items>
-            <MenuItem mnemonicParsing="false" text="Datatypes" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <CheckMenuItem fx:id="checkMenuItemOptHeaders" mnemonicParsing="false" onAction="#generateCXHeaders" text="Generate headers" />
           </items>
@@ -69,7 +68,7 @@
         <Menu fx:id="menuSort" mnemonicParsing="false" text="Sort">
           <items>
                   <Menu fx:id="menuSortBy" mnemonicParsing="false" text="Sort by..." />
-                  <Menu fx:id="menuAlgorithm" mnemonicParsing="false" text="Algorithm" />
+                  <Menu fx:id="menuAlgorithm_SO" mnemonicParsing="false" text="Algorithm" />
                   <Menu fx:id="menuSortOrderBy" mnemonicParsing="false" text="Order by...">
                      <items>
                         <MenuItem fx:id="menuItemSortASC" mnemonicParsing="false" text="ASC" />
@@ -81,7 +80,9 @@
         </Menu>
             <Menu fx:id="menuSearch" mnemonicParsing="false" text="Search">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <Menu fx:id="menuSearchBy" mnemonicParsing="false" text="Search by..." />
+                  <Menu fx:id="menuAlgorithm_SE" mnemonicParsing="false" text="Algorithm" />
+                <MenuItem fx:id="menuItemRunSearch" mnemonicParsing="false" onAction="#executeSearcher" text="Run" />
               </items>
             </Menu>
             <Menu fx:id="menuView" mnemonicParsing="false" text="View">
@@ -98,7 +99,7 @@
       <Pane prefHeight="87.0" prefWidth="937.0">
          <children>
             <Label layoutX="432.0" layoutY="57.0" prefHeight="17.0" prefWidth="109.0" text="Execution time:" />
-            <Label fx:id="labelTime" layoutX="524.0" layoutY="57.0" prefHeight="17.0" prefWidth="71.0" style="-fx-text-fill: green;" text="0.0 ms" />
+            <Label fx:id="labelTextTime" layoutX="524.0" layoutY="57.0" prefHeight="17.0" prefWidth="71.0" style="-fx-text-fill: green;" text="0 ms" />
             <Label layoutX="673.0" layoutY="7.0" prefHeight="17.0" prefWidth="82.0" text="Order by:" />
             <Label layoutX="147.0" layoutY="7.0" text="Sorting Method: " />
             <Label layoutX="147.0" layoutY="32.0" text="Search Method:" />
@@ -124,7 +125,7 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font></Label>
             <Label layoutX="432.0" layoutY="32.0" text="Search by: " />
-            <Label layoutX="497.0" layoutY="32.0" style="-fx-text-fill: red;" text="None" />
+            <Label fx:id="labelTextSearchBy" layoutX="497.0" layoutY="32.0" style="-fx-text-fill: red;" text="None" />
          </children>
       </Pane>
   </children>

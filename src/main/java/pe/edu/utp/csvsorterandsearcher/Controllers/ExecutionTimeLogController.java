@@ -32,8 +32,8 @@ public class ExecutionTimeLogController {
         });
     }
 
-    public void addRow(String algorithmName, double time){
-            items.add(new String[]{algorithmName, String.valueOf(time)});
+    public void addRow(String algorithmName, long time){
+            items.add(new String[]{algorithmName, String.format("%d ms", time)});
             //tableViewExecutionTimeLog.getItems().addAll(new String[]{algorithmName, String.valueOf(time)});
     }
 

@@ -1,4 +1,6 @@
-package pe.edu.utp.csvsorterandsearcher.Algorithms;
+package pe.edu.utp.csvsorterandsearcher.Algorithms.Sort;
+
+import pe.edu.utp.csvsorterandsearcher.Algorithms.Swap;
 
 /**
  * The optimized Bubble sort algorithm.
@@ -7,7 +9,7 @@ package pe.edu.utp.csvsorterandsearcher.Algorithms;
  * one pass. So the best case complexity is O(n).
  * @timeComplexity O(n^2)
  */
-public class OptimizedBubbleSort implements SortingAlgorithm {
+public class OptimizedBubbleSort{
 
 	/**
 	 * Implementation based on: https://faculty.cs.niu.edu/~mcmahon/CS241/Notes/Sorting_Algorithms/bubble_sort.html
