@@ -296,7 +296,15 @@ public class CSVSorterAndSearcherController {
     private void addAlgorithmMethodMenu(){
 
         String[][] nameAlgorithms = {
-                {"QuickSort", "BubbleSort", "OptimizedBubbleSort", "MergeSort", "HeapSort", "BogoSort (WARNING: Your pc will explode)"},
+                {"QuickSort",
+                        "BubbleSort",
+                        "OptimizedBubbleSort",
+                        "MergeSort",
+                        "HeapSort",
+                        "ShellSort",
+                        "ShakerSort",
+                        "BogoSort (WARNING: Your pc will explode)",
+                },
                 {"SequentialSearch", "InterpolationSearch", "BinarySearch"}
         };
         so_Algo = new SortingAlgorithm[]{
@@ -305,6 +313,8 @@ public class CSVSorterAndSearcherController {
                 OptimizedBubbleSort::sort,
                 MergeSort::sort,
                 HeapSort::sort,
+                ShellSort::sort,
+                ShakerSort::sort,
                 BogoSort::sort,
         };
         se_Algo = new SearchAlgorithm[]{
