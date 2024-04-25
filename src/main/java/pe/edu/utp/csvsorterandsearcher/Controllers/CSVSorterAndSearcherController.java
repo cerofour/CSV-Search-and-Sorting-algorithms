@@ -13,10 +13,7 @@ import pe.edu.utp.csvsorterandsearcher.Algorithms.Search.BinarySearch;
 import pe.edu.utp.csvsorterandsearcher.Algorithms.Search.InterpolationSearcher;
 import pe.edu.utp.csvsorterandsearcher.Algorithms.Search.SearchAlgorithm;
 import pe.edu.utp.csvsorterandsearcher.Algorithms.Search.SequentialSearch;
-import pe.edu.utp.csvsorterandsearcher.Algorithms.Sort.BubbleSort;
-import pe.edu.utp.csvsorterandsearcher.Algorithms.Sort.OptimizedBubbleSort;
-import pe.edu.utp.csvsorterandsearcher.Algorithms.Sort.QuickSort;
-import pe.edu.utp.csvsorterandsearcher.Algorithms.Sort.SortingAlgorithm;
+import pe.edu.utp.csvsorterandsearcher.Algorithms.Sort.*;
 import pe.edu.utp.csvsorterandsearcher.CSV.*;
 import pe.edu.utp.csvsorterandsearcher.CSVSorterAndSearcher;
 import pe.edu.utp.csvsorterandsearcher.Utilities.ExportModes;
@@ -299,13 +296,16 @@ public class CSVSorterAndSearcherController {
     private void addAlgorithmMethodMenu(){
 
         String[][] nameAlgorithms = {
-                {"QuickSort", "BubbleSort", "OptimizedBubbleSort"},
+                {"QuickSort", "BubbleSort", "OptimizedBubbleSort", "MergeSort", "HeapSort", "BogoSort (WARNING: Your pc will explode)"},
                 {"SequentialSearch", "InterpolationSearch", "BinarySearch"}
         };
         so_Algo = new SortingAlgorithm[]{
                 QuickSort::sort,
                 BubbleSort::sort,
-                OptimizedBubbleSort::sort
+                OptimizedBubbleSort::sort,
+                MergeSort::sort,
+                HeapSort::sort,
+                BogoSort::sort,
         };
         se_Algo = new SearchAlgorithm[]{
                 SequentialSearch::search,
