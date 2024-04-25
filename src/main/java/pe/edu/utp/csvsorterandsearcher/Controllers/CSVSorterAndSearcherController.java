@@ -31,10 +31,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-
+/**
+ * Controller class for the main application window of CSVSorterAndSearcher.
+ */
 public class CSVSorterAndSearcherController {
 
-
+    // FXML components
     @FXML
     private Label labelTextTime, labelTextSortBy, labelTextSearchBy, labelTextSortingMode;
 
@@ -66,6 +68,7 @@ public class CSVSorterAndSearcherController {
     private TableView<String[]> tableView;
 
 
+    // Other variables
     private FileChooser fileChooserOpen, fileChooserExport, fileChooserExportAs;
     private File file;
     private ExecutionTimeLogController ExecutionTimeLogC;
@@ -76,12 +79,16 @@ public class CSVSorterAndSearcherController {
     private SearchAlgorithm[] se_Algo;
 
 
+    // Other variables
     public static boolean sort_orderBy = true, rawDataView = true;
     public static int columnIndexToSelectedInSort = -1, columnIndexToSelectedInSearch = -1;
     private int selectSortAlgorithmIndex = -1, selectSearchAlgorithmIndex = -1;
     private Integer[] algorithmGeneratedIndexes = null;
 
 
+    /**
+     * Initializes the controller.
+     */
     public void initialize(){
         createSubWindows();
         updateRecentFiles();
@@ -97,6 +104,9 @@ public class CSVSorterAndSearcherController {
     }
 
 
+    /**
+     * Opens a file dialog to select a CSV file and loads it into the application.
+     */
     @FXML
     protected void openFile(){
         file = fileChooserOpen.showOpenDialog(null);
@@ -110,6 +120,10 @@ public class CSVSorterAndSearcherController {
         disableAllMenuButtons(false);
     }
 
+    /**
+     * Opens a recently accessed file based on the selected menu item.
+     * @param pathRecentFile The path of the recently accessed file.
+     */
     private void openRecentFile(String pathRecentFile){
         file = new File(pathRecentFile);
         if (!file.exists()){
@@ -128,6 +142,9 @@ public class CSVSorterAndSearcherController {
         disableAllMenuButtons(false);
     }
 
+    /**
+     * Updates the list of recent files in the menu.
+     */
     private void updateRecentFiles(){
         ArrayList<String> recentFiles = Utilities.readRecordRecentFiles();
         if (menuRecentFiles != null){
@@ -145,6 +162,10 @@ public class CSVSorterAndSearcherController {
     }
 
 
+    /**
+     * Reads the selected CSV file and loads its contents into the application.
+     * @param useFileHeaders Indicates whether to use the headers from the file.
+     */
     private void startCSVReader(boolean useFileHeaders){
         CSVReader reader = new CSVReader(file);
         if(!useFileHeaders){
@@ -157,6 +178,9 @@ public class CSVSorterAndSearcherController {
         setColumnsToChoose();
     }
 
+    /**
+     * Sets the columns available for sorting and searching.
+     */
     private void setColumnsToChoose(){
         /*
         - This method adds the columns to select in the Sort and Search by menu
@@ -180,6 +204,10 @@ public class CSVSorterAndSearcherController {
     }
 
 
+    /**
+     * Disables all menu buttons.
+     * @param disableAllButtons Indicates whether to disable all buttons.
+     */
     private void disableAllMenuButtons(boolean disableAllButtons){
         menuData.setDisable(disableAllButtons);
         menuSort.setDisable(disableAllButtons);
@@ -189,6 +217,10 @@ public class CSVSorterAndSearcherController {
         itemToSearch.setDisable(disableAllButtons);
     }
 
+    /**
+     * Disables export buttons based on a condition.
+     * @param disableExportButtons Indicates whether to disable export buttons.
+     */
     private void disableExportButtons(boolean disableExportButtons){
         if (!disableExportButtons && !rawDataView){
             menuItemExport.setDisable(false);
@@ -201,6 +233,9 @@ public class CSVSorterAndSearcherController {
     }
 
 
+    /**
+     * Creates sub-windows for the application.
+     */
     private void createSubWindows(){
         FXMLLoader loaderExecutionTimeLog = new FXMLLoader(CSVSorterAndSearcher.class.getResource("ExecutionTimeLog.fxml"));
         try{
@@ -227,6 +262,9 @@ public class CSVSorterAndSearcherController {
 
     }
 
+    /**
+     * Loads different file choosers for opening, exporting, and exporting as.
+     */
     private void loadDifferentFileChooser(){
         // fileChooserOpen
         fileChooserOpen = new FileChooser();
@@ -255,6 +293,9 @@ public class CSVSorterAndSearcherController {
 
     }
 
+    /**
+     * Adds sorting and searching algorithm methods to the menu.
+     */
     private void addAlgorithmMethodMenu(){
 
         String[][] nameAlgorithms = {
@@ -286,6 +327,9 @@ public class CSVSorterAndSearcherController {
         }
     }
 
+    /**
+     * Resets settings and clears the table view.
+     */
     private void resetSettings(){
         // reset tableView
         tableV.clear(tableView);
@@ -321,26 +365,48 @@ public class CSVSorterAndSearcherController {
     }
 
 
+    /**
+     * Selects a sorting method based on the user's choice.
+     * @param SortMethod The selected sorting method.
+     * @param index The index of the selected sorting method.
+     */
     private void selectSortingMethod(String SortMethod, int index){
         selectSortAlgorithmIndex = index;
         labelTextSortingMethod.setText(SortMethod);
     }
 
+    /**
+     * Selects a search method based on the user's choice.
+     * @param SearchMethod The selected search method.
+     * @param index The index of the selected search method.
+     */
     private void selectSearchMethod(String SearchMethod, int index){
         selectSearchAlgorithmIndex = index;
         labelTextSearchMethod.setText(SearchMethod);
     }
 
+    /**
+     * Selects a column for searching based on the user's choice.
+     * @param index The index of the selected column.
+     */
     private void search_selectSearchBy(int index) {
         columnIndexToSelectedInSearch = index;
         labelTextSearchBy.setText(ir.getHeaders()[index].name);
     }
 
+    /**
+     * Selects a column for sorting based on the user's choice.
+     * @param index The index of the selected column.
+     */
     private void sort_selectSortBy(int index){
         columnIndexToSelectedInSort = index;
         labelTextSortBy.setText(ir.getHeaders()[index].name);
     }
 
+    /**
+     * Selects the sorting order (ascending or descending) based on user input.
+     * @param optOrderBy Indicates whether to sort in ascending order.
+     */
     @FXML
     protected void sort_selectOrderBy(boolean optOrderBy){
         sort_orderBy = optOrderBy;
@@ -348,6 +414,9 @@ public class CSVSorterAndSearcherController {
     }
 
 
+    /**
+     * Executes the sorting process based on the selected sorting method and column.
+     */
     @FXML
     protected void executeSorting(){
         if (selectSortAlgorithmIndex < 0 || columnIndexToSelectedInSort < 0){
@@ -406,6 +475,9 @@ public class CSVSorterAndSearcherController {
         showProcessedData();
     }
 
+    /**
+     * Executes the searching process based on the selected search method, column, and item.
+     */
     @FXML
     protected void executeSearcher(){
         if (selectSearchAlgorithmIndex < 0 || columnIndexToSelectedInSearch < 0 ||
@@ -478,6 +550,9 @@ public class CSVSorterAndSearcherController {
 
     }
 
+    /**
+     * Displays the execution time log window.
+     */
     @FXML
     protected void runExecutionTimeLog(){
         if (!stageExecutionTimeLog.isShowing()){
@@ -489,6 +564,9 @@ public class CSVSorterAndSearcherController {
     }
 
 
+    /**
+     * Exports the data to a CSV file.
+     */
     @FXML
     private void export(){
         File fileExport = fileChooserExport.showSaveDialog(null);
@@ -498,6 +576,9 @@ public class CSVSorterAndSearcherController {
         ExportModes.ExportAsCSV(ir.getHeaders(), tableV.getItems(), fileExport.getPath());
     }
 
+    /**
+     * Exports the data to a specified file format.
+     */
     @FXML
     protected void exportAs(){
         File fileExport = fileChooserExportAs.showSaveDialog(null);
@@ -529,6 +610,9 @@ public class CSVSorterAndSearcherController {
     }
 
 
+    /**
+     * Displays the raw data view in the table.
+     */
     @FXML
     protected void showRawData(){
         rawDataView = true;
@@ -537,6 +621,9 @@ public class CSVSorterAndSearcherController {
         tableV.setItems(ir.getColumns());
     }
 
+    /**
+     * Displays the processed data view in the table.
+     */
     @FXML
     protected void showProcessedData(){
         if(algorithmGeneratedIndexes == null)
@@ -548,6 +635,9 @@ public class CSVSorterAndSearcherController {
     }
 
 
+    /**
+     * Clears the table view and resets settings.
+     */
     @FXML
     protected void clearTableView(){
         disableExportButtons(true);
@@ -555,12 +645,18 @@ public class CSVSorterAndSearcherController {
         resetSettings();
     }
 
+    /**
+     * Generates or removes auto-generated column headers.
+     */
     @FXML
     protected void generateCXHeaders(){
         startCSVReader(!checkMenuItemOptHeaders.isSelected());
     }
 
 
+    /**
+     * Exits the application.
+     */
     @FXML
     protected void quit(){
         Platform.exit();
