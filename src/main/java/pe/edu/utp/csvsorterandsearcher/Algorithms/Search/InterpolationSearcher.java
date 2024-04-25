@@ -7,7 +7,15 @@ import java.util.Objects;
 
 public class InterpolationSearcher {
 
-
+    /**
+     * Searches for the specified item in the given array using interpolation search.
+     * TODO: When searching for certain data it stays in an infinite loop
+     *       (the case in which it fails is undetermined).
+     * @param arr The array to search within.
+     * @param itemToSearch The item to search for.
+     * @param <T> The type of elements in the array. Must implement the Comparable interface.
+     * @return The index of the item if found, or -1 if not found.
+     */
     public static <T extends Comparable<T>> Integer search(T[] arr, T itemToSearch){
         T[] arr1 = arr.clone();
 

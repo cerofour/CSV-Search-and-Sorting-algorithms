@@ -423,7 +423,21 @@ public class CSVSorterAndSearcherController {
         FieldType type = ir.getHeaders()[columnIndexToSelectedInSearch].type;
 
         Object[] convertedModifiedData_ = DataTypeDetector.dataTypeConversion(columnData, type);
-        Object convertedItemToSearch = DataTypeDetector.dataTypeConversion(itemToSearch.getText(), type);
+
+        Object convertedItemToSearch;
+
+        try {
+            convertedItemToSearch = DataTypeDetector.dataTypeConversion(itemToSearch.getText(), type);
+        }catch (Exception e){
+            Utilities.alert(
+                    "WARNING",
+                    "The element has a different data type!",
+                    "The element has a different data type in the column to search",
+                    Alert.AlertType.WARNING
+            );
+            algorithmGeneratedIndexes = null;
+            return;
+        }
 
         if (type == FieldType.String){
             //to search regardless of upper or lower case
