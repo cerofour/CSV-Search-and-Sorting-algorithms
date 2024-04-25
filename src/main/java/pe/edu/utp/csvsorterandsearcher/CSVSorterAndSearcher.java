@@ -8,7 +8,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Main class for the CSVSorterAndSearcher application.
+ */
 public class CSVSorterAndSearcher extends Application {
+
+    /**
+     * Starts the application by loading the main window.
+     * @param stage The primary stage for the application.
+     * @throws IOException If an error occurs while loading the FXML file.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CSVSorterAndSearcher.class.getResource("MainWindow.fxml"));
@@ -20,6 +29,10 @@ public class CSVSorterAndSearcher extends Application {
         stage.show();
     }
 
+    /**
+     * Main method to launch the application.
+     * @param args Command line arguments (unused).
+     */
     public static void main(String[] args) {
         launch();
     }
