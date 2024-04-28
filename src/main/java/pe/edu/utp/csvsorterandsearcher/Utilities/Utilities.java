@@ -87,7 +87,7 @@ public class Utilities {
     public static void alert(String title, String header, String contextText, Alert.AlertType alertType){
         Alert alerta = new Alert(alertType);
         alerta.getDialogPane().getStylesheets()
-                .add(Objects.requireNonNull(CSVSorterAndSearcher.class.getResource("style.css"))
+                .add(Objects.requireNonNull(CSVSorterAndSearcher.class.getResource("DarkTheme.css"))
                         .toExternalForm());
         alerta.setTitle(title);
         alerta.setHeaderText(header);

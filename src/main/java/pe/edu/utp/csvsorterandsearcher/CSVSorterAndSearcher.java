@@ -24,7 +24,7 @@ public class CSVSorterAndSearcher extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(CSVSorterAndSearcher.class.getResource("MainWindow.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 820, 640);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("DarkTheme.css")).toExternalForm());
         stage.setTitle("CSVSorterAndSearcher");
         stage.setScene(scene);
         stage.setResizable(false);

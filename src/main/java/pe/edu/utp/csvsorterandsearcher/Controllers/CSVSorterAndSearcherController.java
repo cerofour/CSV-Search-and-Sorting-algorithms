@@ -240,7 +240,7 @@ public class CSVSorterAndSearcherController {
         try{
             // creates the ExecutionTimeLog subwindow
             Scene sceneExecutionTimeLog = new Scene(loaderExecutionTimeLog.load(), 445, 460);
-            sceneExecutionTimeLog.getStylesheets().add(Objects.requireNonNull(CSVSorterAndSearcher.class.getResource("style.css")).toExternalForm());
+            sceneExecutionTimeLog.getStylesheets().add(Objects.requireNonNull(CSVSorterAndSearcher.class.getResource("DarkTheme.css")).toExternalForm());
             stageExecutionTimeLog.setTitle("Execution Time Log");
             stageExecutionTimeLog.setScene(sceneExecutionTimeLog);
             stageExecutionTimeLog.setResizable(false);
