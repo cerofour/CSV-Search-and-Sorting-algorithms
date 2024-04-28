@@ -26,6 +26,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -81,6 +82,7 @@ public class CSVSorterAndSearcherController {
     public static int columnIndexToSelectedInSort = -1, columnIndexToSelectedInSearch = -1;
     private int selectSortAlgorithmIndex = -1, selectSearchAlgorithmIndex = -1;
     private Integer[] algorithmGeneratedIndexes = null;
+    private int lengthsubstr = 27;
 
 
     /**
@@ -238,6 +240,7 @@ public class CSVSorterAndSearcherController {
         try{
             // creates the ExecutionTimeLog subwindow
             Scene sceneExecutionTimeLog = new Scene(loaderExecutionTimeLog.load(), 445, 460);
+            sceneExecutionTimeLog.getStylesheets().add(Objects.requireNonNull(CSVSorterAndSearcher.class.getResource("style.css")).toExternalForm());
             stageExecutionTimeLog.setTitle("Execution Time Log");
             stageExecutionTimeLog.setScene(sceneExecutionTimeLog);
             stageExecutionTimeLog.setResizable(false);
@@ -382,7 +385,8 @@ public class CSVSorterAndSearcherController {
      */
     private void selectSortingMethod(String SortMethod, int index){
         selectSortAlgorithmIndex = index;
-        labelTextSortingMethod.setText(SortMethod);
+        labelTextSortingMethod.setText(SortMethod.substring(0, Math.min(SortMethod.length(), lengthsubstr))
+                +((SortMethod.length() > lengthsubstr) ? "..." : ""));
     }
 
     /**
@@ -392,7 +396,8 @@ public class CSVSorterAndSearcherController {
      */
     private void selectSearchMethod(String SearchMethod, int index){
         selectSearchAlgorithmIndex = index;
-        labelTextSearchMethod.setText(SearchMethod);
+        labelTextSearchMethod.setText(SearchMethod.substring(0, Math.min(SearchMethod.length(), lengthsubstr))
+                +((SearchMethod.length() > lengthsubstr) ? "..." : ""));
     }
 
     /**
@@ -401,7 +406,9 @@ public class CSVSorterAndSearcherController {
      */
     private void search_selectSearchBy(int index) {
         columnIndexToSelectedInSearch = index;
-        labelTextSearchBy.setText(ir.getHeaders()[index].name);
+        String str = ir.getHeaders()[index].name;
+        labelTextSearchBy.setText(str.substring(0, Math.min(str.length(), lengthsubstr))
+                +((str.length() > lengthsubstr) ? "..." : ""));
     }
 
     /**
@@ -410,7 +417,9 @@ public class CSVSorterAndSearcherController {
      */
     private void sort_selectSortBy(int index){
         columnIndexToSelectedInSort = index;
-        labelTextSortBy.setText(ir.getHeaders()[index].name);
+        String str = ir.getHeaders()[index].name;
+        labelTextSortBy.setText(str.substring(0, Math.min(str.length(), lengthsubstr))
+                +((str.length() > lengthsubstr) ? "..." : ""));
     }
 
     /**

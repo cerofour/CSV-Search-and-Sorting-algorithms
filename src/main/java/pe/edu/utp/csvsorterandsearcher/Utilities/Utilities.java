@@ -1,6 +1,7 @@
 package pe.edu.utp.csvsorterandsearcher.Utilities;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Dialog;
 import pe.edu.utp.csvsorterandsearcher.CSVSorterAndSearcher;
 
 import java.io.*;
@@ -12,6 +13,7 @@ import java.util.Objects;
  * files and presenting alerts in the user interface.
  */
 public class Utilities {
+
 
     private static final String _FILELOG_ =
             Objects.requireNonNull(
@@ -84,6 +86,9 @@ public class Utilities {
      */
     public static void alert(String title, String header, String contextText, Alert.AlertType alertType){
         Alert alerta = new Alert(alertType);
+        alerta.getDialogPane().getStylesheets()
+                .add(Objects.requireNonNull(CSVSorterAndSearcher.class.getResource("style.css"))
+                        .toExternalForm());
         alerta.setTitle(title);
         alerta.setHeaderText(header);
         alerta.setContentText(contextText);

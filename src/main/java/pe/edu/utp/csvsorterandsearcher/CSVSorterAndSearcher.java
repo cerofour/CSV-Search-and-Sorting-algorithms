@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Main class for the CSVSorterAndSearcher application.
@@ -21,7 +22,9 @@ public class CSVSorterAndSearcher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CSVSorterAndSearcher.class.getResource("MainWindow.fxml"));
+
         Scene scene = new Scene(fxmlLoader.load(), 820, 640);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         stage.setTitle("CSVSorterAndSearcher");
         stage.setScene(scene);
         stage.setResizable(false);
