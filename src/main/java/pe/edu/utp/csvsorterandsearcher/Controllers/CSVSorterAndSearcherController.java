@@ -306,6 +306,7 @@ public class CSVSorterAndSearcherController {
                         "HeapSort",
                         "ShellSort",
                         "ShakerSort",
+                        "InsertionSort",
                         "BogoSort (WARNING: Your pc will explode)",
                 },
                 {"SequentialSearch", "InterpolationSearch", "BinarySearch"}
@@ -318,6 +319,7 @@ public class CSVSorterAndSearcherController {
                 HeapSort::sort,
                 ShellSort::sort,
                 ShakerSort::sort,
+                InsertionSort::sort,
                 BogoSort::sort,
         };
         se_Algo = new SearchAlgorithm[]{

@@ -49,6 +49,10 @@
     -fx-background-color: #FFA500;
 }
 
+.button:pressed {
+    -fx-background-color: #BE7F0C;
+}
+
 .dialog-pane {
     -fx-background-color: #202020;
     -fx-text-fill: #ffffff;

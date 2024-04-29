@@ -22,7 +22,6 @@ public class CSVSorterAndSearcher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CSVSorterAndSearcher.class.getResource("MainWindow.fxml"));
-
         Scene scene = new Scene(fxmlLoader.load(), 820, 640);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("DarkTheme.css")).toExternalForm());
         stage.setTitle("CSVSorterAndSearcher");
