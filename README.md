@@ -1,5 +1,7 @@
 # Coding guidelines
 
+[![sas.png](https://i.postimg.cc/4NcsH8Mt/sas.png)](https://postimg.cc/WhsQQ7sb)
+
 ## Classes
 
 - A class should only do ONE thing and do it efficiently.
