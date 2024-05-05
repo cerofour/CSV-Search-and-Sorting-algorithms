@@ -96,7 +96,7 @@
             </Menu>
       </menus>
     </MenuBar>
-      <TableView fx:id="tableView" prefHeight="529.0" prefWidth="789.0" style="-fx-background-color: gray;" />
+      <TableView fx:id="tableView" prefHeight="529.0" prefWidth="789.0" />
       <Pane prefHeight="92.0" prefWidth="820.0" style="-fx-border-color: gray;">
          <children>
             <Label layoutX="432.0" layoutY="57.0" prefHeight="17.0" prefWidth="109.0" text="Execution time:" />

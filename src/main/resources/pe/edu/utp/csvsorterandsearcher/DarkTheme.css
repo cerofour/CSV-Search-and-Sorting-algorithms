@@ -32,6 +32,10 @@
     -fx-background: #FFA500;
 }
 
+.table {
+    -fx-background-color: BLACK;
+}
+
 .menu .menu-item {
     -fx-background-color: #505050;
 }
